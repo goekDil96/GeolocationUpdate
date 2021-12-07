@@ -9,4 +9,4 @@ API Documentation
 .. toctree::
     :glob:
 
-    ./api/*
+    ./api/modules.rst
