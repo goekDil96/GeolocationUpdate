@@ -16,12 +16,6 @@ Submodules
    :undoc-members:
    :show-inheritance:
 
-
-.. automodule:: GeolocationUpdate.mathOperations
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 

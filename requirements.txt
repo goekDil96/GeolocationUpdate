@@ -2,3 +2,4 @@ auxilium
 numpy
 requests
 https://limits.pythonanywhere.com/limits.zip
+gpxpy
