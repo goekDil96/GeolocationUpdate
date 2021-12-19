@@ -61,7 +61,7 @@ class work_on_server():
             print(f"Error occured: {e}")
         return result
 
-    def get_result_getlimit_server(self, lat=49.870210, lon=8.632949,
+    def get_result_getlimit_server(self, lat=49.87342, lon=8.619549,
                                    rad=20., spd=10., dir=10., sec=1.):
         r"""
         Get the result for the getlimit function on the serverside.
@@ -77,8 +77,12 @@ class work_on_server():
         result = False
         try:
             ci = _Connection(self.user, self.password, self.url, self.port)
-            result = ci.get_limit(latitude=lat, longitude=lon,
-                                  speed=spd, direction=dir)
+            result = ci.get_limit(latitude=lat,
+                                  longitude=lon,
+                                  speed=spd, 
+                                  direction=dir,
+                                  get_ways=ci.get_ways
+                                  )
             print(f"Result ways: {result}")
         except Exception as e:
             print(f"Error occured: {e}")
@@ -90,8 +94,8 @@ def main():
     geolocation = work_on_server(config=config)
 
     # geolocation.get_getlimit_code()
-    # geolocation.get_result_getlimit_server()
-    geolocation.update_getlimit_code_to_server()
+    geolocation.get_result_getlimit_server()
+    # geolocation.update_getlimit_code_to_server()
 
 
 if __name__ == "__main__":

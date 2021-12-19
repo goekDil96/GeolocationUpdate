@@ -20,11 +20,29 @@ from GeolocationUpdate.getlimit import cross
 from GeolocationUpdate.getlimit import norm
 from GeolocationUpdate.getlimit import diff
 from GeolocationUpdate.getlimit import s_mul
+from GeolocationUpdate.getlimit import sortIndexList
 
 class getLimitTests(TestCase):
     def setUp(self):
         pass
 
+    def test_sortIndexList(self):
+        v1_error = "hello"
+        i1_error = 2.3
+        reverse_error = 3
+
+        v1 = [(1, 7, 3), (3, 2, 8), (2, 5, 6)]
+        i1 = 1
+        reverse = True
+    
+        self.assertRaises(TypeError, sortIndexList, v1_error, i1)
+        self.assertRaises(TypeError, sortIndexList, v1, i1_error)
+        self.assertRaises(TypeError, sortIndexList, v1, i1, reverse_error)
+
+        self.assertEqual(sortIndexList(v1, i1), [(3, 2, 8), (2, 5, 6), (1, 7, 3)])
+        self.assertEqual(sortIndexList(v1), [(1, 7, 3), (2, 5, 6), (3, 2, 8)])
+        self.assertEqual(sortIndexList(v1, i1, reverse), [(1, 7, 3), (2, 5, 6), (3, 2, 8)])
+    
     def test_angle_north(self):
         v1_error = "hallo"
         v2_error = [1, 2, 3]

@@ -13,10 +13,44 @@ from math import atan2 as _arctan2
 from math import pi as _pi
 from math import sqrt as _sqrt
 
+predecessor = None
+
+
+def sortIndexList(vector1, i=0, reverse=False):
+    r"""
+    Sort vector1 that contains iterable objects
+    based on the i-th entry from each object in
+    vector1 from smallest to greatest or greatest to
+    smallest.
+
+    :param list vector1: list of lists or tupels
+    :param integer i: index on which the list is sorted
+    :param bool reverse: reverse order of sorting
+    :return: list
+    """
+    if type(vector1) != list:
+        raise TypeError("Input arg vector1 must be from type list!")
+    if type(i) != int:
+        raise TypeError("Input arg i must be from type integer!")
+    if type(reverse) != bool:
+        raise TypeError("Input arg reverse must be from type bool!")
+
+    resultList = []
+    resultList.append(vector1[0])
+
+    for index, item in enumerate(vector1):
+        for j in range(len(vector1)):
+            if item[i] >= vector1[j][i]:
+                vector1[index], vector1[j] = vector1[j], vector1[index]
+
+    if not reverse:
+        vector1.reverse()
+    return vector1
+
 
 def cross(vector1, vector2):
     r"""
-    Returns the Crossproduct of vector2
+    Returns the Crossproduct of vector1 and vector1.
 
     :param list vector1: three-dimensional vector
     :param list vector2: three-dimensional vector
@@ -24,9 +58,9 @@ def cross(vector1, vector2):
 
     """
     if type(vector1) != list or type(vector2) != list:
-        raise TypeError("Error: Input args must be from type list!")
+        raise TypeError("Input args must be from type list!")
     if len(vector1) != 3 or len(vector2) != 3:
-        raise ValueError("Error: Input args must have len 3!")
+        raise ValueError("Input args must have len 3!")
 
     ax, ay, az = vector1
     bx, by, bz = vector2
@@ -183,6 +217,8 @@ def find_distance(point, line_point1, line_point2):
 
 
 def get_limit(latitude, longitude, speed, direction, get_ways):
+    global predecessor
+
     r"""
     Get the limit and possible ways.
 
@@ -195,7 +231,7 @@ def get_limit(latitude, longitude, speed, direction, get_ways):
 
     """
     # get ways near-by
-    all_ways = get_ways(latitude, longitude, radius=30)
+    all_ways = get_ways(latitude, longitude, radius=80)
     list1 = []
     list2 = []
     for i in all_ways:
@@ -212,17 +248,18 @@ def get_limit(latitude, longitude, speed, direction, get_ways):
         angle_diff = abs(angle-direction)
 
         # print(distance)
-        list1.append((distance, angle_diff, i))
-        list2.append((distance, angle_diff, i))
-    list1.sort(key=lambda x: x[0])  # nach Länge sortiert
-    list2.sort(key=lambda x: x[1])  # nach diff_angle sortiert
-    # print(list1)
-    # print(list2)
+        list1.append([distance, angle_diff, i])
+        list2.append([distance, angle_diff, i])
+    # x[1] < 45 or (x[1] > 135 and x[1] < 225) or x[1] > 315 for x in list1)
     try:
-        limit = (list1[0][-1].limit).kmh
-        way = list1[0][-1]
+        list1Sorted = sortIndexList(list1, 0)
+        limit = (list1Sorted[0][-1].limit).kmh
+        way = list1Sorted[0][-1]
+        # if limit == -3.6:
+        #     limit = predecessor
+        # else:
+        #     predecessor = limit
     except Exception:
-        print(list1)
         limit = -1
         way = None
     return limit, (way)
