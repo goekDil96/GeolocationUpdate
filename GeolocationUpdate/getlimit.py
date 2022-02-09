@@ -9,216 +9,117 @@
 # Website:  https://github.com/Dilara Goeksu/Geolocation
 # License:  Apache License 2.0 (see LICENSE file)
 
-from math import atan2 as _arctan2
-from math import pi as _pi
-from math import sqrt as _sqrt
 
-predecessor = None
+import colimit.location
+
+vorgaenger = None
 
 
-def sortIndexList(vector1, i=0, reverse=False):
-    r"""
-    Sort vector1 that contains iterable objects
-    based on the i-th entry from each object in
-    vector1 from smallest to greatest or greatest to
-    smallest.
-
-    :param list vector1: list of lists or tupels
-    :param integer i: index on which the list is sorted
-    :param bool reverse: reverse order of sorting
-    :return: list
+def getNearestPointToWay(point, way):
     """
-    if type(vector1) != list:
-        raise TypeError("Input arg vector1 must be from type list!")
-    if type(i) != int:
-        raise TypeError("Input arg i must be from type integer!")
-    if type(reverse) != bool:
-        raise TypeError("Input arg reverse must be from type bool!")
+    Get nearest langitude and longitude from point object
+    on way object.
 
-    resultList = []
-    resultList.append(vector1[0])
-
-    for index, item in enumerate(vector1):
-        for j in range(len(vector1)):
-            if item[i] >= vector1[j][i]:
-                vector1[index], vector1[j] = vector1[j], vector1[index]
-
-    if not reverse:
-        vector1.reverse()
-    return vector1
-
-
-def cross(vector1, vector2):
-    r"""
-    Returns the Crossproduct of vector1 and vector1.
-
-    :param list vector1: three-dimensional vector
-    :param list vector2: three-dimensional vector
-    :return: list
+    :param location point: location object
+    :param way way: way object
+    :returns: tuple
 
     """
-    if type(vector1) != list or type(vector2) != list:
-        raise TypeError("Input args must be from type list!")
-    if len(vector1) != 3 or len(vector2) != 3:
-        raise ValueError("Input args must have len 3!")
+    point1RV = way.geometry[0].coordinate
+    point2RV = way.geometry[1].coordinate
 
-    ax, ay, az = vector1
-    bx, by, bz = vector2
+    rV = (point2RV[0] - point1RV[0], point2RV[1] - point1RV[1])
+    a = rV[0] * point.coordinate[0] + rV[1] * point.coordinate[1]
 
-    cx = ay * bz - az * by
-    cy = az * bx - ax * bz
-    cz = ax * by - ay * bx
-    vector3 = [cx, cy, cz]
-    return vector3
+    newList = [(rV[0], point1RV[0]), (rV[1], point1RV[1])]
+
+    b = sum([i * j for i, j in newList])
+    m = sum([i ** 2 for i in rV])
+
+    r = (a - b) / m
+    xResult = point1RV[0] + r * rV[0]
+    yResult = point1RV[1] + r * rV[1]
+
+    return (xResult, yResult)
 
 
-def norm(vector1):
-    r"""
-    Length of vector1.
-
-    :param list vector1: two-/ or three-dimensional vector
-    :return: float
-
+def getDegreeDifference(angle1, angle2):
     """
-    if type(vector1) != list:
-        raise TypeError("Error: Input args must be from type list!")
-    elif len(vector1) not in [2, 3]:
-        raise ValueError("Error: Length from input args are not 2 or 3!")
+    Get difference between angle1 and angle2.
 
-    x = vector1[0]
-    y = vector1[1]
-    if len(vector1) == 3:
-        z = vector1[2]
-    else:
-        z = 0
-
-    vecNorm = float(_sqrt(x ** 2 + y ** 2 + z ** 2))
-
-    return vecNorm
-
-
-def diff(vector1, vector2):
-    r"""
-    Build difference of vector1 and vector2
-
-    :param list vector1: two-/ or three-dimensional vector
-    :param list vector2: two-/ or three-dimensional vector
-    :return: list
-
-    """
-    if type(vector1) != list or type(vector2) != list:
-        raise TypeError("Error: Input args must be from type list!")
-    elif len(vector1) not in [2, 3] or len(vector2) not in [2, 3]:
-        raise ValueError("Error: Length from input args are not 2 or 3!")
-    elif len(vector1) != len(vector2):
-        raise ValueError("Error: Input args must have same length!")
-
-    x = vector1[0] - vector2[0]
-    y = vector1[1] - vector2[1]
-    if len(vector1) == 3:
-        z = vector1[2] - vector2[2]
-
-        vector3 = [x, y, z]
-    else:
-        vector3 = [x, y]
-
-    return vector3
-
-
-def s_mul(scalar, vector1):
-    r"""
-    Scalar multiplication from scalar and vector1.
-
-    :param float scalar: scalar
-    :param list vector1: two-/ or three-dimensional vector
-    :return: list
-
-    """
-    if type(scalar) != float and type(scalar) != int:
-        raise TypeError("Error: scalar must be from type float or integer!")
-    elif type(vector1) != list:
-        raise TypeError("Error: vector1 must be from type list!")
-    elif len(vector1) not in [2, 3]:
-        raise ValueError("Error: len from vector1 must be 2 or 3!")
-
-    x = scalar * vector1[0]
-    y = scalar * vector1[1]
-    if len(vector1) == 3:
-        z = scalar * vector1[2]
-        vector2 = [x, y, z]
-    else:
-        vector2 = [x, y]
-    return vector2
-
-
-def angle_north(point1, point2):
-    r"""
-    Returns the clockwise angle (in degree) between the vector
-    from point1 to point2 and the vector (0, 1).
-
-    :param list point1: first two-dimensional vector
-    :param list point2: second two-dimensional vector
+    :param float angle1: float
+    :param float angle2: float
     :returns: float
 
     """
-    if type(point1) != list or type(point2) != list:
-        raise TypeError("Input args must be from type list!")
-    if len(point1) != 2 or len(point2) != 2:
-        raise ValueError("Input args must have length 2!")
-    # v2 equals the vektor that connects point1 and point2
-    v2 = [point2[0] - point1[0], point2[1] - point1[1]]
-    angle_rad = _arctan2(v2[0], v2[1])
-    angle_degree = angle_rad / (2 * _pi) * 360
-    if angle_degree < 0:
-        angle_degree = 360 + angle_degree
-    return angle_degree
+    degree = (angle1 - angle2) % 360
+    if degree < 90:
+        pass
+    elif degree < 180:
+        degree = 180 - degree
+    elif degree < 270:
+        degree = degree - 180
+    else:
+        degree = 360 - degree
+    return degree
 
 
-def find_distance(point, line_point1, line_point2):
-    r"""
-    Finds the distance between point and
-    the vector between line_point1 and line_point2.
+def getDirectionWay(way):
+    """Returns direction (in Degree) from way object.
 
-    :param list point: two-dimensional vector
-    :param list line_point1: two-dimensional vector
-    :param list line_point2: two-dimensional vector
+    :param way way: way object
+    :returns: int
+
+    """
+    dirWay = colimit.location.Location.polar(way.geometry[0].coordinate[0],
+                                             way.geometry[0].coordinate[1],
+                                             way.geometry[1].coordinate[0],
+                                             way.geometry[1].coordinate[1])
+    return dirWay[1]
+
+
+def getScattering(*a):
+    """
+    For every Element in tuple a, calculate scattering.
+
+    :param tuple a: tuple
     :returns: float
 
     """
-    # input Points
-    hom_point = [point[0], point[1], 1]
-    point1 = [line_point1[0], line_point1[1], 1]
-    point2 = [line_point2[0], line_point2[1], 1]
+    result = 0
+    for i in a:
+        result += i ** 2
+    result **= 1 / 2
+    result /= len(a)
+    return result
 
-    # berechne Richtungsvektor für Gerade aus point1
-    # und point2
-    line_dir = diff(point2, point1)
 
-    # Normalenrichtungsverktor  und Normalenvektor
-    # in impliziter Form
-    impl_line = [line_dir[1], -1 * line_dir[0], 0]
+def getScatFromWayandLocation(way, pointSelf, directionSelf):
+    """
+    Get Scattering Value from way, location and
+    direction.
 
-    # Kreuzprodukt der beiden Normalenvektoren
-    # zwischen Gerade (hom_point, impl_line)
-    # und der Geraden (point1, point2)
-    # ist Punkt mit kleinstem Abstand zwischen
-    # Gerade impl_1nd_line und hom_point
-    impl_1st_line = cross(point1, line_dir)
-    impl_2nd_line = cross(hom_point, impl_line)
+    :param way way: way ocject
+    :param location pointSelf: Location of user
+    :param float directionSelf: degree to north from user
+    :returns: float
 
-    point3 = cross(impl_1st_line, impl_2nd_line)
-    n_point3 = s_mul(float(1 / point3[2]), point3)
+    """
+    # get distance from location to street
+    nearPoint = getNearestPointToWay(pointSelf, way)
+    nearPoint = colimit.location.Location(nearPoint[0], nearPoint[1])
+    abstand = colimit.location.Location.dist(nearPoint, pointSelf)
 
-    # aus beiden Punkten einen Vektor machen,
-    # von diesem Vektor die Länge nehmen
-    line_dist = norm(diff(n_point3, hom_point))
+    # get difference of direction (street) and direction (user)
+    dirStr = getDirectionWay(way)
 
-    return line_dist
+    degreeReturn = getDegreeDifference(dirStr, directionSelf)
+    # get quality level
+    qualityLevel = getScattering(abstand, 6 * degreeReturn)
+    return qualityLevel
 
 
 def get_limit(latitude, longitude, speed, direction, get_ways):
-    global predecessor
-
     r"""
     Get the limit and possible ways.
 
@@ -230,36 +131,83 @@ def get_limit(latitude, longitude, speed, direction, get_ways):
     :returns: speed(float), ways(tuple)
 
     """
-    # get ways near-by
-    all_ways = get_ways(latitude, longitude, radius=80)
-    list1 = []
-    list2 = []
-    for i in all_ways:
-        # i is way object
-        point_self = [longitude, latitude]
-        point1 = [i.geometry[0].longitude, i.geometry[0].latitude]
-        point2 = [i.geometry[1].longitude, i.geometry[1].latitude]
+    allWays = []
+    resultList = []
+    global vorgaenger
 
-        distance = find_distance(point=point_self,
-                                 line_point1=point1,
-                                 line_point2=point2)
+    # get own location as location object
+    pointSelf = colimit.location.Location(latitude,
+                                          longitude,
+                                          speed,
+                                          direction)
 
-        angle = angle_north(point1, point2)
-        angle_diff = abs(angle-direction)
+    directionP = (direction + 180) % 360
 
-        # print(distance)
-        list1.append([distance, angle_diff, i])
-        list2.append([distance, angle_diff, i])
-    # x[1] < 45 or (x[1] > 135 and x[1] < 225) or x[1] > 315 for x in list1)
-    try:
-        list1Sorted = sortIndexList(list1, 0)
-        limit = (list1Sorted[0][-1].limit).kmh
-        way = list1Sorted[0][-1]
-        # if limit == -3.6:
-        #     limit = predecessor
-        # else:
-        #     predecessor = limit
-    except Exception:
-        limit = -1
-        way = None
-    return limit, (way)
+    pSelfPPP = colimit.location.Location.next(pointSelf,
+                                              direction=directionP,
+                                              radius=15
+                                              )
+
+    pSelfPP = colimit.location.Location.next(pointSelf,
+                                             direction=directionP,
+                                             radius=10
+                                             )
+
+    pSelfP = colimit.location.Location.next(pointSelf,
+                                            direction=directionP,
+                                            radius=5
+                                            )
+
+    pSelfF = colimit.location.Location.next(pointSelf,
+                                            direction=direction,
+                                            radius=5
+                                            )
+
+    pSelfFF = colimit.location.Location.next(pointSelf,
+                                             direction=direction,
+                                             radius=10,
+                                             )
+
+    pSelfFFF = colimit.location.Location.next(pointSelf,
+                                              direction=direction,
+                                              radius=15,
+                                              )
+
+    radius = [80, 150, 300]
+    while len(allWays) == 0 and len(radius) != 0:
+        rad = radius.pop(0)
+        allWays = get_ways(latitude=latitude, longitude=longitude, radius=rad)
+        if not vorgaenger:
+            vorgaenger = allWays[0]
+    for way in allWays:
+        qualityLevelPPP = getScatFromWayandLocation(way, pSelfPPP, direction)
+        qualityLevelPP = getScatFromWayandLocation(way, pSelfPP, direction)
+        qualityLevelP = getScatFromWayandLocation(way, pSelfP, direction)
+        qualityLevel = getScatFromWayandLocation(way, pointSelf, direction)
+        qualityLevelF = getScatFromWayandLocation(way, pSelfF, direction)
+        qualityLevelFF = getScatFromWayandLocation(way, pSelfFF, direction)
+        qualityLevelFFF = getScatFromWayandLocation(way, pSelfFFF, direction)
+        # print(qualityLevelF)
+
+        qL = getScattering(qualityLevelPPP, qualityLevelPP, qualityLevelP,
+                           qualityLevel, qualityLevelF, qualityLevelFF,
+                           qualityLevelFFF)
+
+        if way == vorgaenger:
+            # print(qL)
+            qL *= 0.5
+
+        # append tuple (qualityLevel, way) to resultList
+        resultList.append([qL, way])
+
+    # sort resultList from lowest qualityLevel value to highest
+    resultList.sort(key=lambda x: x[0])
+    # get Limit from resultList
+    limit = resultList[0][-1].limit.kmh
+    vorgaenger = resultList[0][-1]
+    # get resultTuple from resultList
+    resultTuple = []
+    for i in resultList:
+        resultTuple.append(i[-1])
+    resultTuple = tuple(resultTuple)
+    return limit, resultTuple

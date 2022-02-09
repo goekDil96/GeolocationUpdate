@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="Open GPX Tracker for iOS">
+    <trk>
+        <trkseg>
+            <trkpt lat="49.87344599134374" lon="8.618388175964357">
+                <ele>125.1</ele>
+                <time>2022-01-27T09:30:59Z</time>
+            </trkpt>
+            <trkpt lat="49.87344599134374" lon="8.618388175964357">
+                <ele>125.1</ele>
+                <time>2022-01-27T09:31:59Z</time>
+            </trkpt>
+            <trkpt lat="49.873454" lon="8.618389">
+                <ele>125.3</ele>
+                <time>2022-01-27T09:32:59Z</time>
+            </trkpt>
+            <trkpt lat="49.873425" lon="8.619365">
+                <ele>125.3</ele>
+                <time>2022-01-27T09:33:59Z</time>
+            </trkpt>
+            <trkpt lat="49.873425" lon="8.619365">
+                <ele>125.3</ele>
+                <time>2022-01-27T09:34:59Z</time>
+            </trkpt>
+            <trkpt lat="49.873391" lon="8.620384">
+                <ele>125.1</ele>
+                <time>2022-01-27T09:35:59Z</time>
+            </trkpt>
+            <trkpt lat="49.873391" lon="8.620384">
+                <ele>125.1</ele>
+                <time>2022-01-27T09:36:59Z</time>
+            </trkpt>
+            <trkpt lat="49.873356" lon="8.621511">
+                <ele>126.6</ele>
+                <time>2022-01-27T09:37:59Z</time>
+            </trkpt>
+            <trkpt lat="49.873356" lon="8.621511">
+                <ele>126.6</ele>
+                <time>2022-01-27T09:38:59Z</time>
+            </trkpt>
+            <trkpt lat="49.87332" lon="8.622798">
+                <ele>127.0</ele>
+                <time>2022-01-27T09:39:59Z</time>
+            </trkpt>
+            <trkpt lat="49.87332" lon="8.622798">
+                <ele>127.0</ele>
+                <time>2022-01-27T09:40:59Z</time>
+            </trkpt>
+            <trkpt lat="49.87329" lon="8.623882">
+                <ele>127.0</ele>
+                <time>2022-01-27T09:41:59Z</time>
+            </trkpt>
+            <trkpt lat="49.87329" lon="8.623882">
+                <ele>127.0</ele>
+                <time>2022-01-27T09:42:59Z</time>
+            </trkpt>
+            <trkpt lat="49.873253" lon="8.62519">
+                <ele>128.3</ele>
+                <time>2022-01-27T09:43:59Z</time>
+            </trkpt>
+            <trkpt lat="49.873253" lon="8.62519">
+                <ele>128.3</ele>
+                <time>2022-01-27T09:44:59Z</time>
+            </trkpt>
+            <trkpt lat="49.873211" lon="8.626521">
+                <ele>128.3</ele>
+                <time>2022-01-27T09:45:59Z</time>
+            </trkpt>
+            <trkpt lat="49.873211" lon="8.626521">
+                <ele>128.3</ele>
+                <time>2022-01-27T09:46:59Z</time>
+            </trkpt>
+            <trkpt lat="49.873168" lon="8.627895">
+                <ele>128.3</ele>
+                <time>2022-01-27T09:47:59Z</time>
+            </trkpt>
+        </trkseg>
+    </trk>
+</gpx>

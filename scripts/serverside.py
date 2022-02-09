@@ -94,8 +94,8 @@ def main():
     geolocation = work_on_server(config=config)
 
     # geolocation.get_getlimit_code()
-    geolocation.get_result_getlimit_server()
-    # geolocation.update_getlimit_code_to_server()
+    # geolocation.get_result_getlimit_server()
+    geolocation.update_getlimit_code_to_server()
 
 
 if __name__ == "__main__":
