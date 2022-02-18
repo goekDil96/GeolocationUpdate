@@ -1,24 +1,22 @@
+from fileinput import filename
 import sys
 import os
 import colimit
- 
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 from colimit import Connection as _Connection, way
 from GeolocationUpdate.getconfig import get_config
-from GeolocationUpdate.getlimit import get_limit
+from GeolocationUpdate.getlimit_einfach  import get_limit
+from GeolocationUpdate.getlimit import get_limit as _get_limit
 
 
 config = get_config()
-# filename = 'ecke.gpx'
-# filename = 'dornheimerWeg_gerade.gpx'
-# filename = "Fiedlersee_Ecke.gpx"
-filename = "traubenweg_gerade.gpx"
-# filename = 'ecken.gpx'
-# filename = 'geraderWeg.gpx'
-# filename = '15-Dez.-2021-1511.gpx'
 # filename = "around_hda.gpx"
+# filename = "bleichstraße.gpx"
+filename = "ecken_arheilgen.gpx"
+# filename = "geraderWeg.gpx"
 
 def read_gpx_file(filename):
     posLocation = colimit.testing.gpx(config["path_to_gpx"] + filename)
@@ -31,14 +29,8 @@ def main():
                           url=config["url"],
                           port=config["port"])
 
-    pos_ways = connect.get_ways(latitude=47.644548,
-                                longitude=-122.326897,
-                                radius=20)
-    
-    # print(pos_ways)
-
     posLocation = read_gpx_file(filename)
-    # print(posLocation)
+    print(len(posLocation))
     for loc in posLocation:
         # print(waypoint.latitude)
         # print(waypoint.longitude)
@@ -50,12 +42,26 @@ def main():
             # print(spd.mph)
         else:
             spd = 30
-        print(get_limit(latitude=lat,
+        print("///////////////////////////////")
+        print("einfach: ", get_limit(latitude=lat,
                         longitude=lon,
                         speed=spd,
                         direction=dir,
-                        get_ways=connect.get_ways))
-        print("  ")
+                        get_ways=connect.get_ways)[0], get_limit(latitude=lat,
+                        longitude=lon,
+                        speed=spd,
+                        direction=dir,
+                        get_ways=connect.get_ways)[1][0:1])
+        print("erweitertesModell: ", _get_limit(latitude=lat,
+                        longitude=lon,
+                        speed=spd,
+                        direction=dir,
+                        get_ways=connect.get_ways)[0], _get_limit(latitude=lat,
+                        longitude=lon,
+                        speed=spd,
+                        direction=dir,
+                        get_ways=connect.get_ways)[1][0:1])
+        print(" ")
 
 
 

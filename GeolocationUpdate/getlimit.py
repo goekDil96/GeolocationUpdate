@@ -115,7 +115,7 @@ def getScatFromWayandLocation(way, pointSelf, directionSelf):
 
     degreeReturn = getDegreeDifference(dirStr, directionSelf)
     # get quality level
-    qualityLevel = getScattering(abstand, 6 * degreeReturn)
+    qualityLevel = getScattering(0.75 * abstand, 0.25 * degreeReturn)
     return qualityLevel
 
 
@@ -196,6 +196,7 @@ def get_limit(latitude, longitude, speed, direction, get_ways):
         if way == vorgaenger:
             # print(qL)
             qL *= 0.5
+            # pass
 
         # append tuple (qualityLevel, way) to resultList
         resultList.append([qL, way])

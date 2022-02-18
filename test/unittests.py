@@ -64,7 +64,7 @@ class getLimitTests(TestCase):
         self.assertAlmostEqual(getNearestPointToWay(self.point, self.pos_ways[0])[1], -122.3268972608751)
 
     def test_getScatFromWayandLocation(self):
-        self.assertAlmostEqual(getScatFromWayandLocation(self.pos_ways[0], self.point, 14.0), 42.99480443949462)
+        self.assertAlmostEqual(getScatFromWayandLocation(self.pos_ways[0], self.point, 14.0), 2.7312199972824907)
     
     def test_get_limit(self):
         self.assertEqual(get_limit(latitude=47.644548, speed=0,

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" version="1.1" creator="https://gpx.studio">
+<trk>
+    <trkseg>
+    <trkpt lat="49.874050852831886" lon="8.65078926086426">
+        <ele>142.5</ele>
+        <time>2021-12-15T13:20:46Z</time>
+    </trkpt>
+    <trkpt lat="49.874050852831886" lon="8.65078926086426">
+        <ele>142.5</ele>
+        <time>2021-12-15T13:21:46Z</time>
+    </trkpt>
+    <trkpt lat="49.874052" lon="8.650789">
+        <ele>141.0</ele>
+        <time>2021-12-15T13:22:46Z</time>
+    </trkpt>
+    <trkpt lat="49.874004" lon="8.650436">
+        <ele>140.9</ele>
+        <time>2021-12-15T13:23:46Z</time>
+    </trkpt>
+    <trkpt lat="49.874034" lon="8.650429">
+        <ele>140.8</ele>
+        <time>2021-12-15T13:24:46Z</time>
+    </trkpt>
+    <trkpt lat="49.874027" lon="8.650277">
+        <ele>140.9</ele>
+        <time>2021-12-15T13:25:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873927" lon="8.649528">
+        <ele>141.1</ele>
+        <time>2021-12-15T13:26:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873927" lon="8.649528">
+        <ele>141.1</ele>
+        <time>2021-12-15T13:27:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873843" lon="8.648891">
+        <ele>141.2</ele>
+        <time>2021-12-15T13:28:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873797" lon="8.648655">
+        <ele>141.2</ele>
+        <time>2021-12-15T13:29:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873759" lon="8.648667">
+        <ele>141.3</ele>
+        <time>2021-12-15T13:30:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873737" lon="8.648509">
+        <ele>141.2</ele>
+        <time>2021-12-15T13:31:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873737" lon="8.648509">
+        <ele>141.2</ele>
+        <time>2021-12-15T13:32:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873572" lon="8.647311">
+        <ele>140.5</ele>
+        <time>2021-12-15T13:33:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873572" lon="8.647311">
+        <ele>140.5</ele>
+        <time>2021-12-15T13:34:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873447" lon="8.646415">
+        <ele>140.5</ele>
+        <time>2021-12-15T13:35:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873447" lon="8.646415">
+        <ele>140.5</ele>
+        <time>2021-12-15T13:36:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873316" lon="8.645473">
+        <ele>140.5</ele>
+        <time>2021-12-15T13:37:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873316" lon="8.645473">
+        <ele>140.5</ele>
+        <time>2021-12-15T13:38:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873212" lon="8.64469">
+        <ele>140.6</ele>
+        <time>2021-12-15T13:39:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873212" lon="8.64469">
+        <ele>140.6</ele>
+        <time>2021-12-15T13:40:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873183" lon="8.644461">
+        <ele>140.2</ele>
+        <time>2021-12-15T13:41:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873062" lon="8.643574">
+        <ele>139.0</ele>
+        <time>2021-12-15T13:42:46Z</time>
+    </trkpt>
+    <trkpt lat="49.873062" lon="8.643574">
+        <ele>139.0</ele>
+        <time>2021-12-15T13:43:46Z</time>
+    </trkpt>
+    <trkpt lat="49.872954" lon="8.642766">
+        <ele>139.0</ele>
+        <time>2021-12-15T13:44:46Z</time>
+    </trkpt>
+    <trkpt lat="49.872954" lon="8.642766">
+        <ele>139.0</ele>
+        <time>2021-12-15T13:45:46Z</time>
+    </trkpt>
+    <trkpt lat="49.872809" lon="8.641696">
+        <ele>138.0</ele>
+        <time>2021-12-15T13:46:46Z</time>
+    </trkpt>
+    </trkseg>
+</trk>
+</gpx>
