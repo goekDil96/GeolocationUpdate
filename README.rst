@@ -204,7 +204,8 @@ arbeiten wir mit künstlich erstellten Daten.
     Gerade Straße
 
   Das oben gezeigte Beispiel lässt sich in 17 Wegstücke aufteilen (diese entsprechen nicht den gezeigten Punkten).
-  Der Algorithmus ist in der Lage 8 der 17 Wegstücke richtig zuzuordnen.
+  Der Algorithmus ist in der Lage 8 der 17 Wegstücke richtig zuzuordnen. Die Genauigkeit des Algorithmus
+  liegt hier bei ungefähr 47 Prozent. (nach: "https://gpx.studio/")
 
 2) Straße mit Ecken
 
@@ -212,11 +213,11 @@ arbeiten wir mit künstlich erstellten Daten.
     :width: 400
     :alt: Straße mit Ecken
 
-  Bei diesem Beispiel werden 7 der 8 Wegpunkte korrekt zugeordnet. 
+  Bei diesem Beispiel werden 7 der 8 Wegpunkte korrekt zugeordnet. (nach: "https://gpx.studio/")
 
 Wir sehen, dass der Algorithmus noch große Schwierigkeiten damit hat, das richtige $way$ Objekt auszuwählen, wenn die
 Dichte der $way$ Objekte auf dem betrachteten Gebiet sehr hoch ist. Dies möchten wir mit einer überarbeiteten Version des Algorithmus
-verringern.
+verringern. Die Genauigkeit des Algorithmus liegt hier bei 87.5 Prozent. 
 
 Genauigkeit bei ungesäuberten Daten bei mathematischem Grundmodell
 ------------------------------------------------------------------
@@ -227,10 +228,14 @@ Genauigkeit bei ungesäuberten Daten bei mathematischem Grundmodell
     :width: 400
     :alt: Street with corners
 
-  Bei diesem Beispiel werden 3 der 34 Wegpunkte falsch zugeordnet. Schnell erkennen wir auch warum: Die Messgenauigkeit
+  Bei diesem Beispiel werden 8 der 34 Wegpunkte falsch zugeordnet. Schnell erkennen wir auch warum: Die Messgenauigkeit
   der Testdaten ist nicht sehr genau, da die Abweichung des zu bestimmenden Wegpunktes $pointSelf$ um 35 Meter abweichen kann. Vor
   allem bei kleinen Geschwindigkeiten, mit denen sich der User bewegt, entstehen so hohe Messungenauigkeiten. Deshalb erweitern wir unser mathematischen Modell
-  im nächsten Abschnitt, um so Messfehlern vorzubeugen.
+  im nächsten Abschnitt, um so Messfehlern vorzubeugen. Die Genauigkeit des Algorithmus
+  liegt hier bei ungefähr 76 Prozent. 
+
+Insgesamt schwankt die Genauigkeit des Algortihmus stark und hängt ebenfalls stark von den gewählten Daten ab. Diesen Umstand möchten wir verändern,
+sodass wir konsistentere Ergebnisse bekommen.
 
 Erweiterung des mathematischen Grundmodells
 -------------------------------------------
@@ -260,7 +265,7 @@ Trefferwahrscheinlichkeit generiert. Dazu betrachten wir folgende Stichpunkte:
   eine hohe Sicherheit bedeutet und umgekehrt ein hoher Zahlenwert eine niedirge Sicherheit bedeutet.
 
   .. math::
-    qL_{way, singleLocation} = \frac{\sqrt{0.75 * diffLocation^{2} + 0.25 * diffDegree^{2}}}{2}
+    qL_{way, singleLocation} = \frac{\sqrt{(0.75 * diffLocation)^{2} + (0.25 * diffDegree)^{2}}}{2}
 
   Die Faktoren 0.75 und 0.25 ergeben sich aus Erfahrungswerten, da die Abweichung der real gemessenen $direction$ des Users sehr schwankt und somit wenig
   Aussagekraft hat. Somit berücksichtigen wir diesen Wert weniger.
@@ -277,7 +282,7 @@ Trefferwahrscheinlichkeit generiert. Dazu betrachten wir folgende Stichpunkte:
 - Zuletzt bauen wir einen weiteren Sicherheitsmechanismus ein: Hat unser Algorithmus das betrachtete $way$ Objekt
   bereits im vorigen Durchlauf der $get\_limit()$ Funktion als den wahrscheinlichsten Kandidaten unter allen $way$ Objekten
   ausgesucht, so verringern wir das errechnete Gütemaß $qL_{way,  multipleLocations}$ dieses $way$ Objektes in diesem Aufruf der $get\_limit()$ Funktion
-  um die Hälfte, da es sehr wahrscheinlich ist, dass wir uns wieder auf demselben Weg befinden, wenn wir uns davor schon af diesem 
+  um die Hälfte, da es sehr wahrscheinlich ist, dass wir uns wieder auf demselben Weg befinden, wenn wir uns davor schon auf diesem 
   Weg befunden haben.
 
 Beurteilen wir nun die Erweiterung des mathematischen  Grundmodells nach den 2 bekannten Kriterien: 
@@ -299,10 +304,10 @@ Datensätze.
     :alt: Straight way
     :figclass: align-center
 
-    Gerade Straße
+    Gerade Straße (nach: "https://gpx.studio/")
 
   Der Algorithmus hat 16 der 17 Wegstücke richtig zugeordnet. Die Genauigkeit des Algorithmus
-  liegt hier bei ungefähr 0.94 Prozent. 
+  liegt hier bei ungefähr 94 Prozent. 
   Wir erkennen somit eine deutliche Steigerung der Genauigkeit des Algorithmus.
 
 2) Straße mit Ecken
@@ -311,7 +316,8 @@ Datensätze.
     :width: 400
     :alt: Street with corners
 
-  Bei diesem Beispiel werden alle 8 Wegpunkte korrekt zugeordnet.
+  Bei diesem Beispiel werden alle 8 Wegpunkte korrekt zugeordnet. Die Genauigkeit des Algorithmus
+  liegt bei diesem Datensatz bei 100 Prozent.  (nach: "https://gpx.studio/")
 
 Genauigkeit bei ungesäuberten Daten
 -----------------------------------
@@ -323,7 +329,8 @@ Genauigkeit bei ungesäuberten Daten
     :alt: Street with corners
 
   Bei diesem Beispiel werden nur 2 der 34 Wegpunkte falsch zugeordnet. Somit haben wir auch hier die Genauigkeit
-  des Algorithmus erhöht.
+  des Algorithmus erhöht. Die Genauigkeit des Algorithmus
+  liegt hier bei ungefähr 94 Prozent. 
 
 Fazit
 -----
@@ -348,3 +355,4 @@ License
 
 Code and documentation are available according to the license
 (see LICENSE file in repository).
+
