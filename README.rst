@@ -210,7 +210,7 @@ arbeiten wir mit künstlich erstellten Daten.
 
   .. image:: statics/imFiedlersee.png
     :width: 400
-    :alt: Street with corners
+    :alt: Straße mit Ecken
 
   Bei diesem Beispiel werden 7 der 8 Wegpunkte korrekt zugeordnet. 
 
@@ -305,7 +305,7 @@ Datensätze.
   liegt hier bei ungefähr 0.94 Prozent. 
   Wir erkennen somit eine deutliche Steigerung der Genauigkeit des Algorithmus.
 
-2) Street with corners
+2) Straße mit Ecken
 
   .. image:: statics/imFiedlersee.png
     :width: 400
